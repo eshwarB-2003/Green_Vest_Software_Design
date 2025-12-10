@@ -90,5 +90,5 @@ Applies rules during purchase:
 
 ---
 
-## 📂 Project Structure (Readable for Anyone)
+
 
