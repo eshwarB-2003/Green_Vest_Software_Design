@@ -14,7 +14,7 @@ public class MainMenu {
 
     public void start() {
         Scanner sc = new Scanner(System.in);
-
+   while (true) {
         System.out.println("Select Role:");
         System.out.println("1. Admin");
         System.out.println("2. Seller");
@@ -73,6 +73,7 @@ public class MainMenu {
                     BuyerView view = new BuyerView(controller);
 
                     view.showDashboard(user);
+                   }
                 }
             }
         }
