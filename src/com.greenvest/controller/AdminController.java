@@ -8,6 +8,7 @@ public class AdminController {
     private InterceptorManager InterceptorManager;
 
     public AdminController() {
+
         InterceptorManager = new InterceptorManager();
         InterceptorManager.addInterceptor(new AuthenticationInterceptor());
         InterceptorManager.addInterceptor(new RoleInterceptor("ADMIN"));
