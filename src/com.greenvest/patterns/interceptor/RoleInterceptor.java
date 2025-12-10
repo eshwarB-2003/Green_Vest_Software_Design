@@ -11,7 +11,7 @@ public class RoleInterceptor implements Interceptor {
     @Override
     public boolean preHandle(String email, String role) {
         if (!role.equals(requiredRole)) {
-            System.out.println("❌ Role restricted. Only " + requiredRole + " allowed.");
+            System.out.println(" Role restricted. Only " + requiredRole + " allowed.");
             return false;
         }
         return true;

@@ -29,7 +29,6 @@ public class BuyerView {
             System.out.println("3. View Portfolio");
             System.out.println("4. View Receipts");
             System.out.println("5. View Account Summary");
-
             System.out.println("6. Logout");
             System.out.print("Enter choice: ");
 
@@ -41,6 +40,7 @@ public class BuyerView {
             else if(choice == 3) showPortfolio(buyer);
             else if(choice == 4) showReceipt(buyer);
             else if(choice == 5 ) showAccountSummary(buyer);
+            else if(choice <= 0 || choice > 6) System.out.println("Invalid choice, Try Again !");
             else return;
         }
     }

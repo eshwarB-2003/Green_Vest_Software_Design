@@ -40,7 +40,7 @@ public class ReceiptRepositoryJSON implements ReceiptRepository {
             br.close();
 
             String raw = sb.toString().trim();
-            if (raw.equals("") || raw.equals("[]")) return receipts;
+            if (raw.isEmpty() || raw.equals("[]")) return receipts;
 
             raw = raw.substring(1, raw.length() - 1); // remove []
             String[] entries = raw.split("\\},\\s*\\{");
