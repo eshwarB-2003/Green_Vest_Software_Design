@@ -1,6 +1,7 @@
 # GreenVest – Carbon Credit Trading Platform  
 A lightweight MVC-based prototype implementing Buyer, Seller, and Admin workflows with JSON storage and core software design patterns (Observer, Factory, Decorator, State, Interceptor, Singleton).  
-This project was developed for CS6451 / CS5721 Software Design.
+This project was developed for CS6451 Advanced Software Design.
+Team member : Vaitheeshwar, Pranav , Ganga, Yashwitha
 
 ---
 
