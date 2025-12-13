@@ -13,7 +13,7 @@ public class User {
         this.email = email;
         this.role = role;
         this.passwordHash = passwordHash;
-        this.balance = balance;
+        this.balance = 1000;
     }
 
     public String getName() { return name; }

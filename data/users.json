@@ -4,27 +4,188 @@
     "email": "hi123@gmail.com",
     "role": "BUYER",
     "passwordHash": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
-    "balance": 0.0
+    "balance": 1000.0
   },
   {
     "name": "Sivan Architectures",
     "email": "vaithi123@gmail.com",
     "role": "BUYER",
     "passwordHash": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
-    "balance": 0.0
+    "balance": 1000.0
   },
   {
     "name": "Vaitheeshwar Carbon-Zero Technologies",
     "email": "vaithi12345@gmail.com",
     "role": "BUYER",
     "passwordHash": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
-    "balance": 0.0
+    "balance": 1000.0
   },
   {
     "name": "hi",
     "email": "hi1234546@hgail",
     "role": "BUYER",
     "passwordHash": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
-    "balance": 0.0
+    "balance": 1000.0
+  },
+  {
+    "name": "HI",
+    "email": "hi123@gmil",
+    "role": "SELLER",
+    "passwordHash": "58ccc265b4cd6c4083d83a69cfa80058f33fc54d5101d2c6e0c222ee211c5adc",
+    "balance": 1000.0
+  },
+  {
+    "name": "GREENVEST",
+    "email": "23@GMAIL",
+    "role": "BUYER",
+    "passwordHash": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
+    "balance": 1000.0
+  },
+  {
+    "name": "hi",
+    "email": "hi@gmail.com",
+    "role": "SELLER",
+    "passwordHash": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5",
+    "balance": 1000.0
+  },
+  {
+    "name": "123@gmail.com",
+    "email": "123@gmail.com",
+    "role": "ADMIN",
+    "passwordHash": "114bd151f8fb0c58642d2170da4ae7d7c57977260ac2cc8905306cab6b2acabc",
+    "balance": 1000.0
+  },
+  {
+    "name": "0",
+    "email": "",
+    "role": "SELLER",
+    "passwordHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "balance": 1000.0
+  },
+  {
+    "name": "hi123",
+    "email": "123@gmil.com",
+    "role": "ADMIN",
+    "passwordHash": "e1547db9c7aa94564483856c9f7175baacae6aef11242af4baff3d243db34e7a",
+    "balance": 1000.0
+  },
+  {
+    "name": "hi",
+    "email": "bye",
+    "role": "ADMIN",
+    "passwordHash": "b49f425a7e1f9cff3856329ada223f2f9d368f15a00cf48df16ca95986137fe8",
+    "balance": 1000.0
+  },
+  {
+    "name": "hi",
+    "email": "h",
+    "role": "SELLER",
+    "passwordHash": "aaa9402664f1a41f40ebbc52c9993eb66aeb366602958fdfaa283b71e64db123",
+    "balance": 1000.0
+  },
+  {
+    "name": "h",
+    "email": "b",
+    "role": "BUYER",
+    "passwordHash": "4c94485e0c21ae6c41ce1dfe7b6bfaceea5ab68e40a2476f50208e526f506080",
+    "balance": 1000.0
+  },
+  {
+    "name": "name",
+    "email": "1@g",
+    "role": "ADMIN",
+    "passwordHash": "ae1cb3890c3d6d21bc6a367f892e95ce99aafbf11f504104711f10db5a83d83a",
+    "balance": 1000.0
+  },
+  {
+    "name": "Vaitheeshesh",
+    "email": "123@gmil",
+    "role": "SELLER",
+    "passwordHash": "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3",
+    "balance": 1000.0
+  },
+  {
+    "name": "hi",
+    "email": "hi",
+    "role": "SELLER",
+    "passwordHash": "8f434346648f6b96df89dda901c5176b10a6d83961dd3c1ac88b59b2dc327aa4",
+    "balance": 1000.0
+  },
+  {
+    "name": "a",
+    "email": "a",
+    "role": "BUYER",
+    "passwordHash": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+    "balance": 1000.0
+  },
+  {
+    "name": "GA",
+    "email": "GA123@gmail.com",
+    "role": "ADMIN",
+    "passwordHash": "a2c0a449ced8d428fec476a97a95867f2d22bca9d1906c45fa67333460007b35",
+    "balance": 1000.0
+  },
+  {
+    "name": "GB",
+    "email": "GB@gmail.com",
+    "role": "SELLER",
+    "passwordHash": "55e3673236906bc2342da99bc10e6ee3bde16b991961c651062dd318dd2a294e",
+    "balance": 1000.0
+  },
+  {
+    "name": "GA",
+    "email": "GA@gmail.com",
+    "role": "SELLER",
+    "passwordHash": "a2c0a449ced8d428fec476a97a95867f2d22bca9d1906c45fa67333460007b35",
+    "balance": 1000.0
+  },
+  {
+    "name": "BHAVANI",
+    "email": "BHAVANI@gmil.com",
+    "role": "ADMIN",
+    "passwordHash": "a2c0a449ced8d428fec476a97a95867f2d22bca9d1906c45fa67333460007b35",
+    "balance": 1000.0
+  },
+  {
+    "name": "GB123",
+    "email": "GB123@gmail.com",
+    "role": "BUYER",
+    "passwordHash": "a2c0a449ced8d428fec476a97a95867f2d22bca9d1906c45fa67333460007b35",
+    "balance": 1000.0
+  },
+  {
+    "name": "Vaithi traders",
+    "email": "eshw123@gmsil.com",
+    "role": "SELLER",
+    "passwordHash": "54bca80a61098fb777987edd41f79954ec7a5d03ebe1984b965baf8e30856ef4",
+    "balance": 1000.0
+  },
+  {
+    "name": "siva",
+    "email": "siva123@gmail.com",
+    "role": "SELLER",
+    "passwordHash": "6767c3dd9fffb6ffba2b3dbe2bc4d717dccfb6c93c361e010cfd7aecc1762f5a",
+    "balance": 1000.0
+  },
+  {
+    "name": "sme",
+    "email": "sme@gmail.com",
+    "role": "ADMIN",
+    "passwordHash": "9173714f92c92f8e7a182cc19385bfe9f6a8c127efe6de26df3036c056ece155",
+    "balance": 1000.0
+  },
+  {
+    "name": "Seller",
+    "email": "seller@gmail.com",
+    "role": "SELLER",
+    "passwordHash": "17ad55fd40adcd7325f2740872e2aaa4c0a21edba5975303d0e435f90b762fa4",
+    "balance": 1000.0
+  },
+  {
+    "name": "buyer",
+    "email": "buyer@gmail.com",
+    "role": "BUYER",
+    "passwordHash": "a3d10324e4431ac63b02f89630c8491da2829876bf936a315864347db7030304",
+    "balance": 1000.0
   }
 ]

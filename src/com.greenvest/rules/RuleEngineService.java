@@ -21,4 +21,14 @@ public class RuleEngineService {
         }
         return true;
     }
+    public boolean validateListing(User user,Credit credit) {
+        for (RulePlugin rule : rules) {
+            if (!rule.apply(user, credit, credit.getQuantity())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 }

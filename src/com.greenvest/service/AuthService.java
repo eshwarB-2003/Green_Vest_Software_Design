@@ -1,5 +1,4 @@
 package com.greenvest.service;
-
 import com.greenvest.model.User;
 import com.greenvest.repo.UsersRepository;
 import java.security.MessageDigest;

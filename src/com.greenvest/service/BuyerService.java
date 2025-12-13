@@ -12,63 +12,94 @@ import java.util.List;
 
 public class BuyerService {
 
-    private CreditRepositoryJSON repo = CreditRepositoryJSON.getInstance();
-    private ReceiptRepository receiptRepo = ReceiptRepositoryJSON.getInstance();
-    private PortfolioRepository portfolioRepo = PortfolioRepositoryJSON.getInstance();
-    private AlertService alertService = new AlertService();
-
-
+    private CreditRepository creditRepo;
+    private ReceiptRepository receiptRepo;
+    private PortfolioRepository portfolioRepo ;
+    private AlertService alertService;
     private RuleEngineService ruleEngine;
 
-    public BuyerService(RuleEngineService ruleEngine) {
+    public BuyerService(CreditRepository creditRep
+                        , ReceiptRepository receiptRepo
+                        , PortfolioRepository portfolioRepo,
+                        RuleEngineService ruleEngine) {
+        this.creditRepo = creditRep;
+        this.receiptRepo = receiptRepo;
+        this.portfolioRepo = portfolioRepo;
+        this.alertService = new AlertService();
         this.ruleEngine = ruleEngine;
     }
-
+// ----------------MarketPlace -----------------
     public List<Credit> loadAvailableCredits() {
-        return repo.getAvailableCredits();
+        return creditRepo.getAvailableCredits().stream()
+                .filter(Credit::isListed)
+                .filter(c -> c.getQuantity() >0)
+                .toList();
     }
 
-    public boolean processPurchase(User buyer, Credit credit, int qty) {
+    public Receipt processPurchase(User buyer, Credit credit, int qty) {
 
         if (!ruleEngine.validatePurchase(buyer, credit, qty)) {
-            return false;
+            return null;
         }
 
         double cost = credit.getPrice() * qty;
 
-        if (buyer.getBalance() < cost)
-            return false;
+        if (buyer.getBalance() < cost) {
+            return null;
+        }
 
+        // Deduct balance
         buyer.deductBalance(cost);
 
-        // Update repository to reduce credit qty
-        Credit updated = new Credit(
-                credit.getId(),
-                credit.getQuantity() - qty,
+        // Reduce seller credit quantity
+        credit.reduceQuantity(qty);
+        creditRepo.updateCredit(credit);
+
+        // Add credit to buyer portfolio
+        Credit purchased = new Credit(
+                UUID.randomUUID().toString(),
+                credit.getSellerEmail(),
+                qty,
                 credit.getPrice(),
                 credit.getExpiry()
         );
+        portfolioRepo.saveCreditForBuyer(buyer.getEmail(), purchased);
 
-        repo.updateCredit(updated);
+        //  CREATE RECEIPT BEFORE RETURN
+       // double cost =credit.getPrice() *qty;
+        Receipt receipt = new Receipt(
+                UUID.randomUUID().toString(),
+                credit.getId(),
+                qty,
+                cost,
+                buyer.getEmail()
+        );
+        receiptRepo.saveReceipt(receipt);
 
-        return true;
+        //  RETURN IS LAST
+        return receipt;
     }
+
+    // portfolio
     public List<Credit> getPortfolio(User buyer) {
         List<Credit> credits = portfolioRepo.getCreditsByBuyer(buyer.getEmail());
 
         for (Credit c : credits) {
             c.updateState();  // STATE PATTERN
 
-            if (c.getState().getStateName().equals("EXPIRED")) {
+            if (c.getState().equals("EXPIRED")) {
                 alertService.notifyObservers("Your credit " + c.getId() + " has expired!");
             }
         }
 
         return credits;
     }
+    // receipts
     public List<Receipt> getReceipts(User buyer) {
         return receiptRepo.getReceiptsByBuyer(buyer.getEmail());
     }
+
+    // account summary
     public Map<String, Object> getAccountSummary(User buyer) {
 
         Map<String, Object> summary = new HashMap<>();
@@ -88,7 +119,7 @@ public class BuyerService {
 
             totalCredits += c.getQuantity();
 
-            if (c.getState().getStateName().equals("ACTIVE"))
+            if (c.getState().equals("ACTIVE"))
                 active += c.getQuantity();
             else
                 expired += c.getQuantity();
@@ -100,7 +131,4 @@ public class BuyerService {
 
         return summary;
     }
-
-
-
 }

@@ -22,16 +22,16 @@ public class BuyerController {
         interceptorManager.addInterceptor(new RoleInterceptor("BUYER"));
     }
 
-    public List<Credit> getAvailableCredits(User buyer) {
+  /*  public List<Credit> getAvailableCredits(User buyer) {
         if (!interceptorManager.execute(buyer.getEmail(), buyer.getRole()))
             return null;
 
         return buyerService.loadAvailableCredits();
     }
-
-    public boolean purchase(User buyer, Credit credit, int qty) {
+*/
+    public Receipt purchase(User buyer, Credit credit, int qty) {
         if (!interceptorManager.execute(buyer.getEmail(), buyer.getRole()))
-            return false;
+            return null;
 
         return buyerService.processPurchase(buyer, credit, qty);
     }
@@ -59,7 +59,14 @@ public class BuyerController {
             }
        return buyerService.getReceipts(buyer);
         }
-    public List<Credit> getPortfolio(User buyer) {
+    public List<Credit> viewMarketplace(User buyer) {
+        if (!interceptorManager.execute(buyer.getEmail(), buyer.getRole()))
+            return null;
+
+        return buyerService.loadAvailableCredits();
+    }
+    public List<Credit> viewPortfolio(User buyer) {
+
         if (!interceptorManager.execute(buyer.getEmail(), buyer.getRole()))
             return null;
 

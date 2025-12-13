@@ -1,23 +1,54 @@
+
+
 package com.greenvest.controller;
 
-// ganga part
 import com.greenvest.patterns.interceptor.*;
-import com.greenvest.model.User;
+import com.greenvest.model.*;
+import com.greenvest.service.SellerService;
+
+import java.util.List;
 
 public class SellerController {
 
-    private InterceptorManager InterceptorManager;
+    private InterceptorManager interceptorManager;
+    private SellerService sellerService;
 
-    public SellerController() {
-        InterceptorManager = new InterceptorManager();
-        InterceptorManager.addInterceptor(new AuthenticationInterceptor());
-        InterceptorManager.addInterceptor(new RoleInterceptor("SELLER"));
+    public SellerController(SellerService service) {
+        this.sellerService = service;
+
+        interceptorManager = new InterceptorManager();
+        interceptorManager.addInterceptor(new AuthenticationInterceptor());
+        interceptorManager.addInterceptor(new RoleInterceptor("SELLER"));
     }
 
-    public void openDashboard(User user) {
-        if (!InterceptorManager.execute(user.getEmail(), user.getRole())) return;
+    public void submitAction(User seller, SustainabilityAction action) {
+        if (!interceptorManager.execute(seller.getEmail(), seller.getRole()))
+            return;
 
-        System.out.println("===== SELLER DASHBOARD =====");
-        System.out.println("Welcome " + user.getName());
+        sellerService.submitAction(action);
     }
+    public List<Credit> getMyCredits(User seller) {
+
+        if (!interceptorManager.execute(seller.getEmail(), seller.getRole()))
+            return null;
+
+        return sellerService.viewMyCredits(seller.getEmail());
+    }
+    public Credit generateCredits(User seller, SustainabilityAction action) {
+
+        if (!interceptorManager.execute(seller.getEmail(), seller.getRole()))
+            return null;
+
+        return sellerService.generateCredits(action);
+
+    }
+    public boolean listCredit(User seller, Credit credit) {
+
+        if (!interceptorManager.execute(seller.getEmail(), seller.getRole()))
+            return false;
+
+        return sellerService.listCredits(seller, credit);
+    }
+
 }
+

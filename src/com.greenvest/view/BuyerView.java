@@ -17,6 +17,10 @@ public class BuyerView {
     public BuyerView(BuyerController controller) {
         this.controller = controller;
     }
+    private void pause() {
+        System.out.println("\nPress ENTER to continue...");
+        sc.nextLine();
+    }
 
     public void showDashboard(User buyer) {
 
@@ -35,7 +39,7 @@ public class BuyerView {
             int choice = sc.nextInt();
             sc.nextLine();
 
-            if (choice == 1) showAvailable(buyer);
+            if (choice == 1) viewAvailableCredits(buyer);
             else if (choice == 2) handlePurchase(buyer);
             else if(choice == 3) showPortfolio(buyer);
             else if(choice == 4) showReceipt(buyer);
@@ -45,46 +49,72 @@ public class BuyerView {
         }
     }
 
-    private void showAvailable(User buyer) {
-        List<Credit> list = controller.getAvailableCredits(buyer);
-        if (list == null || list.isEmpty()) {
+  private List<Credit> lastMarketplace = new ArrayList<>();
+
+    private void viewAvailableCredits(User buyer) {
+        lastMarketplace = controller.viewMarketplace(buyer);
+
+        if (lastMarketplace == null || lastMarketplace.isEmpty()) {
             System.out.println("No credits available.");
+            pause();
             return;
         }
 
-        for (Credit c : list) {
-            System.out.println(c.getId() + " | Qty: " + c.getQuantity() +
-                    " | Price: " + c.getPrice() +
-                    " | Expiry: " + c.getExpiry());
+        System.out.println("\n===== AVAILABLE CREDITS =====");
+        for (int i = 0; i < lastMarketplace.size(); i++) {
+            Credit c = lastMarketplace.get(i);
+            System.out.println(
+                    i + ". Seller: " + c.getSellerEmail() +
+                            " | Qty: " + c.getQuantity() +
+                            " | Price: " + c.getPrice()
+            );
         }
+        pause();
     }
 
     private void handlePurchase(User buyer) {
-        System.out.print("Enter Credit ID: ");
-        String id = sc.nextLine();
+
+        if (lastMarketplace == null || lastMarketplace.isEmpty()) {
+            System.out.println("No credits loaded. View marketplace first.");
+            pause();
+            return;
+        }
+
+        System.out.print("Select credit index: ");
+        int index = sc.nextInt();
+        sc.nextLine();
+
+        if (index < 0 || index >= lastMarketplace.size()) {
+            System.out.println("Invalid selection.");
+            pause();
+            return;
+        }
+
+        Credit selected = lastMarketplace.get(index);
 
         System.out.print("Quantity: ");
         int qty = sc.nextInt();
         sc.nextLine();
 
-        Credit selected = controller.getAvailableCredits(buyer)
-                .stream().filter(c -> c.getId().equals(id)).findFirst().orElse(null);
+        Receipt receipt = controller.purchase(buyer, selected, qty);
 
-        if (selected == null) {
-            System.out.println("Invalid Credit ID");
-            return;
+        if (receipt != null) {
+            System.out.println(" Purchase successful!");
+            System.out.println("Receipt ID: " + receipt.getId());
+            System.out.println("Total Amount: " + receipt.getTotalCost());
+            pause();
+        } else {
+            System.out.println(" Purchase failed.");
+            pause();
         }
-
-        boolean ok = controller.purchase(buyer, selected, qty);
-
-        System.out.println(ok ? "Purchase successful!" : "Purchase failed.");
     }
 
     private void showPortfolio(User buyer) {
-        List<Credit> portfolio = controller.getPortfolio(buyer);
+        List<Credit> portfolio = controller.viewPortfolio(buyer);
 
         if (portfolio == null || portfolio.isEmpty()) {
             System.out.println("No credits in your portfolio.");
+            pause();
             return;
         }
 
@@ -93,9 +123,10 @@ public class BuyerView {
             System.out.println(
                     c.getId() + " | Qty: " + c.getQuantity() +
                             " | Price: " + c.getPrice() +
-                            " | Status: " + c.getState().getStateName()
+                            " | Status: " + c.getState()
             );
         }
+        pause();
     }
     private void showReceipt(User buyer) {
         List<Receipt> receipts = controller.showReceipts(buyer);
@@ -109,6 +140,7 @@ public class BuyerView {
 
         if (summary == null) {
             System.out.println("Unable to load summary.");
+            pause();
             return;
         }
 
@@ -118,6 +150,7 @@ public class BuyerView {
         System.out.println("Total Credits Owned: " + summary.get("totalCredits"));
         System.out.println("Active Credits: " + summary.get("activeCredits"));
         System.out.println("Expired Credits: " + summary.get("expiredCredits"));
+        pause();
     }
 
 
