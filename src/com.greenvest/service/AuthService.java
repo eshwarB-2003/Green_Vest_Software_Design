@@ -25,8 +25,16 @@ public class AuthService {
         String hashed = hash(password);
         for (User u : repo.loadUsers()) {
             if (u.getEmail().equalsIgnoreCase(email) && u.getPasswordHash().equals(hashed)) {
+                ActivityService as = new ActivityService();
+                as.log("User logged in", email);
                 return u;
             }
+
+            /*if (u.getEmail().equalsIgnoreCase(email) && u.getPasswordHash().equals(hashed)) {
+                return u;
+                */
+
+
         }
         return null;
     }

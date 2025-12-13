@@ -17,6 +17,7 @@ public class BuyerService {
     private PortfolioRepository portfolioRepo ;
     private AlertService alertService;
     private RuleEngineService ruleEngine;
+    ActivityService activityService = new ActivityService();
 
     public BuyerService(CreditRepository creditRep
                         , ReceiptRepository receiptRepo
@@ -37,6 +38,10 @@ public class BuyerService {
     }
 
     public Receipt processPurchase(User buyer, Credit credit, int qty) {
+        activityService.log(
+                "Buyer purchased credits | Qty: " + qty + " | Credit ID: " + credit.getId(),
+                buyer.getEmail()
+        );
 
         if (!ruleEngine.validatePurchase(buyer, credit, qty)) {
             return null;

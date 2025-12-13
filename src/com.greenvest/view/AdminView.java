@@ -1,8 +1,10 @@
 package com.greenvest.view;
 import com.greenvest.config.SystemConfig;
 import com.greenvest.controller.AdminController;
+import com.greenvest.model.Activity;
 import com.greenvest.model.SustainabilityAction;
 import com.greenvest.model.User;
+import com.greenvest.service.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -24,7 +26,8 @@ public class AdminView {
             System.out.println("2. View Approved Actions");
             System.out.println("3. View Rejected Actions");
             System.out.println("4. Set Minimum Price");
-            System.out.println("5. Logout");
+            System.out.println("5. View System Activities");
+            System.out.println("6. Logout");
 
             System.out.print("Select option: ");
             int choice = sc.nextInt();
@@ -35,9 +38,9 @@ public class AdminView {
                 case 2 -> viewApprovedActions(admin);
                 case 3 -> viewRejectedActions(admin);
                 case 4 -> setMinimumPrice(admin);
-                case 5 -> {
+                case 5 -> viewActivities();
+                case 6 -> {
                     System.out.println("Logging out...");
-                    return;
                 }
                 default -> System.out.println("Invalid option.");
             }
@@ -49,7 +52,6 @@ public class AdminView {
 
         if (list == null || list.isEmpty()) {
             System.out.println("No approved actions.");
-            return;
         }
 
         System.out.println("===== APPROVED ACTIONS =====");
@@ -62,12 +64,16 @@ public class AdminView {
         );
     }
 
+
+
+
+
     private void viewRejectedActions(User admin) {
         List<SustainabilityAction> list = controller.viewRejected(admin);
 
         if (list == null || list.isEmpty()) {
             System.out.println("No rejected actions.");
-            return;
+
         }
 
         System.out.println("===== REJECTED ACTIONS =====");
@@ -79,6 +85,27 @@ public class AdminView {
                 )
         );
     }
+
+    private void viewActivities() {
+
+        ActivityService service = new ActivityService();
+        List<Activity> list = service.getAllActivities();
+
+        if (list.isEmpty()) {
+            System.out.println("No activities found.");
+            return;
+        }
+
+        System.out.println("\n===== SYSTEM ACTIVITY LOG =====");
+        for (Activity a : list) {
+            System.out.println(
+                    a.getTimestamp() + " | " +
+                            a.getPerformedBy() + " | " +
+                            a.getMessage()
+            );
+        }
+    }
+
     private void setMinimumPrice(User admin) {
 
         System.out.print("Enter minimum credit price: ");
@@ -87,7 +114,6 @@ public class AdminView {
 
         if (price <= 0) {
             System.out.println("Invalid price.");
-            return;
         }
 
         controller.setMinPrice(admin, price);
@@ -104,7 +130,6 @@ public class AdminView {
 
         if (actions == null || actions.isEmpty()) {
             System.out.println("No pending seller actions.");
-            return;
         }
 
         System.out.println("\n===== PENDING SELLER ACTIONS =====");

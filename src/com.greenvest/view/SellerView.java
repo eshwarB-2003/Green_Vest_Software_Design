@@ -33,7 +33,7 @@ public class SellerView {
             if (ch == 1) submitAction(seller);
             else if (ch == 2) viewMyCredits(seller);
             else if (ch == 3)  listCredits(seller);
-            else return;
+            else continue;
         }
     }
 
@@ -63,7 +63,6 @@ public class SellerView {
 
         if (credits == null || credits.isEmpty()) {
             System.out.println("No credits found.");
-            return;
         }
 
         System.out.println("\n===== MY GENERATED CREDITS =====");
@@ -97,7 +96,7 @@ public class SellerView {
 
             if (credits == null || credits.isEmpty()) {
                 System.out.println("No credits available to list.");
-                return;
+
             }
 
             //  Show credits

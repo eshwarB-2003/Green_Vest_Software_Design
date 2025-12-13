@@ -57,7 +57,7 @@ public class BuyerView {
         if (lastMarketplace == null || lastMarketplace.isEmpty()) {
             System.out.println("No credits available.");
             pause();
-            return;
+
         }
 
         System.out.println("\n===== AVAILABLE CREDITS =====");
@@ -77,7 +77,6 @@ public class BuyerView {
         if (lastMarketplace == null || lastMarketplace.isEmpty()) {
             System.out.println("No credits loaded. View marketplace first.");
             pause();
-            return;
         }
 
         System.out.print("Select credit index: ");
@@ -87,7 +86,6 @@ public class BuyerView {
         if (index < 0 || index >= lastMarketplace.size()) {
             System.out.println("Invalid selection.");
             pause();
-            return;
         }
 
         Credit selected = lastMarketplace.get(index);
@@ -114,9 +112,9 @@ public class BuyerView {
 
         if (portfolio == null || portfolio.isEmpty()) {
             System.out.println("No credits in your portfolio.");
-            pause();
-            return;
+             pause();
         }
+
 
         for (Credit c : portfolio) {
             c.updateState();  // State Pattern
@@ -141,7 +139,6 @@ public class BuyerView {
         if (summary == null) {
             System.out.println("Unable to load summary.");
             pause();
-            return;
         }
 
         System.out.println("\n===== ACCOUNT SUMMARY =====");
