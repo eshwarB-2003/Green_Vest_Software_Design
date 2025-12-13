@@ -1,0 +1,16 @@
+[
+  {
+    "id": "19d2d718-0a06-4aaa-9e8d-05e7a9f62eaf",
+    "creditId": "c6b66c01-4fc3-444c-be21-fde7f5322f9f",
+    "quantity": "1",
+    "totalCost": "10.0",
+    "buyerEmail": "a"
+  },
+  {
+    "id": "d31fec97-77de-48c7-aaa4-4f47a55e72e6",
+    "creditId": "d8c23a75-be34-4edd-b06b-ba263887f896",
+    "quantity": "1",
+    "totalCost": "10.0",
+    "buyerEmail": "buyer@gmail.com"
+  }
+]
