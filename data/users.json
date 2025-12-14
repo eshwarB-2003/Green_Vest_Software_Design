@@ -187,5 +187,12 @@
     "role": "BUYER",
     "passwordHash": "a3d10324e4431ac63b02f89630c8491da2829876bf936a315864347db7030304",
     "balance": 1000.0
+  },
+  {
+    "name": "admin",
+    "email": "admin123@gmail.com",
+    "role": "ADMIN",
+    "passwordHash": "7676aaafb027c825bd9abab78b234070e702752f625b752e55e55b48e607e358",
+    "balance": 1000.0
   }
 ]

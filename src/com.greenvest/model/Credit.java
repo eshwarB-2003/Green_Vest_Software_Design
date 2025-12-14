@@ -39,15 +39,6 @@ public class Credit {
         return state;
     }
 
-
-    /*public void updateState() {
-        if (LocalDate.now().isAfter(expiry)) {
-            this.state = new ExpiredState();
-        } else {
-            this.state = new ActiveState();
-        }
-    }
-*/
    public void updateState() {
         if (isExpired()) {
             this.state = "EXPIRED";

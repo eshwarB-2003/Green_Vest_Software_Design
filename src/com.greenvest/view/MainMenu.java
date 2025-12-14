@@ -81,7 +81,7 @@ public class MainMenu {
 
                 if (user == null) {
                     System.out.println(" Invalid Login !!! ");
-                    return;
+                    continue;
                 }
 
                 switch (user.getRole()) {

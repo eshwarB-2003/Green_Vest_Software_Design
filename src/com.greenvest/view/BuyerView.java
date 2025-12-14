@@ -17,10 +17,6 @@ public class BuyerView {
     public BuyerView(BuyerController controller) {
         this.controller = controller;
     }
-    private void pause() {
-        System.out.println("\nPress ENTER to continue...");
-        sc.nextLine();
-    }
 
     public void showDashboard(User buyer) {
 
@@ -56,7 +52,6 @@ public class BuyerView {
 
         if (lastMarketplace == null || lastMarketplace.isEmpty()) {
             System.out.println("No credits available.");
-            pause();
 
         }
 
@@ -69,14 +64,14 @@ public class BuyerView {
                             " | Price: " + c.getPrice()
             );
         }
-        pause();
+
     }
 
     private void handlePurchase(User buyer) {
 
         if (lastMarketplace == null || lastMarketplace.isEmpty()) {
             System.out.println("No credits loaded. View marketplace first.");
-            pause();
+
         }
 
         System.out.print("Select credit index: ");
@@ -85,7 +80,6 @@ public class BuyerView {
 
         if (index < 0 || index >= lastMarketplace.size()) {
             System.out.println("Invalid selection.");
-            pause();
         }
 
         Credit selected = lastMarketplace.get(index);
@@ -100,10 +94,10 @@ public class BuyerView {
             System.out.println(" Purchase successful!");
             System.out.println("Receipt ID: " + receipt.getId());
             System.out.println("Total Amount: " + receipt.getTotalCost());
-            pause();
+
         } else {
             System.out.println(" Purchase failed.");
-            pause();
+
         }
     }
 
@@ -112,7 +106,6 @@ public class BuyerView {
 
         if (portfolio == null || portfolio.isEmpty()) {
             System.out.println("No credits in your portfolio.");
-             pause();
         }
 
 
@@ -124,7 +117,6 @@ public class BuyerView {
                             " | Status: " + c.getState()
             );
         }
-        pause();
     }
     private void showReceipt(User buyer) {
         List<Receipt> receipts = controller.showReceipts(buyer);
@@ -138,7 +130,6 @@ public class BuyerView {
 
         if (summary == null) {
             System.out.println("Unable to load summary.");
-            pause();
         }
 
         System.out.println("\n===== ACCOUNT SUMMARY =====");
@@ -147,10 +138,6 @@ public class BuyerView {
         System.out.println("Total Credits Owned: " + summary.get("totalCredits"));
         System.out.println("Active Credits: " + summary.get("activeCredits"));
         System.out.println("Expired Credits: " + summary.get("expiredCredits"));
-        pause();
     }
-
-
-
 }
 

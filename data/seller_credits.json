@@ -3,5 +3,6 @@
 {"id":"ae714e5a-f738-404e-8b80-1a69f31ceaf3","sellerEmail":"GB@gmail.com","quantity":"10","price":"10.0","expiry":"2027-12-13","state":"ACTIVE","listed":"false"},
 {"id":"e1b7f65b-ab1b-483d-b131-ce2692568473","sellerEmail":"GA@gmail.com","quantity":"3","price":"10.0","expiry":"2027-12-13","state":"ACTIVE","listed":"false"},
 {"id":"a38cef8d-bb47-4542-a139-7ac785e26b28","sellerEmail":"siva123@gmail.com","quantity":"12","price":"10.0","expiry":"2027-12-13","state":"ACTIVE","listed":"false"},
-{"id":"d8c23a75-be34-4edd-b06b-ba263887f896","sellerEmail":"seller@gmail.com","quantity":"1","price":"10.0","expiry":"2027-12-13","state":"ACTIVE","listed":"true"}
+{"id":"d8c23a75-be34-4edd-b06b-ba263887f896","sellerEmail":"seller@gmail.com","quantity":"0","price":"10.0","expiry":"2027-12-13","state":"ACTIVE","listed":"true"},
+{"id":"6d2c10c4-dfcf-457f-82d9-bb7ad3409667","sellerEmail":"seller@gmail.com","quantity":"10","price":"10.0","expiry":"2027-12-14","state":"ACTIVE","listed":"false"}
 ]

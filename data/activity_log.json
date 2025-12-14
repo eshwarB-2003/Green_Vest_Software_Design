@@ -1,3 +1,13 @@
 [
-{"message":"User logged in","performedBy":"sme@gmail.com","time":"2025-12-13T19:39:33.234200900"}
+{"message":"User logged in","performedBy":"sme@gmail.com","time":"2025-12-14T10:49:33.498732700"},
+{"message":"User logged in","performedBy":"buyer@gmail.com","time":"2025-12-14T10:49:33.498732700"},
+{"message":"User logged in","performedBy":"seller@gmail.com","time":"2025-12-14T10:49:33.498732700"},
+{"message":"User logged in","performedBy":"admin123@gmail.com","time":"2025-12-14T10:49:33.499752600"},
+{"message":"Approved sustainability action for seller: seller@gmail.com","performedBy":"ADMIN","time":"2025-12-14T10:49:33.499752600"},
+{"message":"Rejected sustainability action for seller: seller@gmail.com","performedBy":"ADMIN","time":"2025-12-14T10:49:33.499752600"},
+{"message":"Minimum credit price updated to 1.0","performedBy":"ADMIN","time":"2025-12-14T10:49:33.499752600"},
+{"message":"User logged in","performedBy":"buyer@gmail.com","time":"2025-12-14T10:49:33.499752600"},
+{"message":"Buyer purchased credits | Qty: 0 | Credit ID: d8c23a75-be34-4edd-b06b-ba263887f896","performedBy":"buyer@gmail.com","time":"2025-12-14T10:49:33.499752600"},
+{"message":"Buyer purchased credits | Qty: 2 | Credit ID: d8c23a75-be34-4edd-b06b-ba263887f896","performedBy":"buyer@gmail.com","time":"2025-12-14T10:49:33.499752600"},
+{"message":"Buyer purchased credits | Qty: 1 | Credit ID: d8c23a75-be34-4edd-b06b-ba263887f896","performedBy":"buyer@gmail.com","time":"2025-12-14T10:49:33.497220700"}
 ]

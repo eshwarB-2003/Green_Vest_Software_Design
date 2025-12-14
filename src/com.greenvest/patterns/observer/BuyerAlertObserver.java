@@ -12,6 +12,6 @@ public class BuyerAlertObserver implements Observer {
 
     @Override
     public void update(String message) {
-        System.out.println("⚠ ALERT for " + buyerEmail + ": " + message);
+        System.out.println(" ALERT for " + buyerEmail + ": " + message);
     }
 }

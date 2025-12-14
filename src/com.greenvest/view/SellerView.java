@@ -126,6 +126,5 @@ public class SellerView {
                 System.out.println(" Credit listing failed");
             }
         }
-
     }
 

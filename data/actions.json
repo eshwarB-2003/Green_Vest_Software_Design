@@ -11,6 +11,7 @@
 {"id":"4a38f153-ba3b-46bb-b45c-b37cbc12e2b2","sellerEmail":"GB@gmail.com","type":"TREE","metricValue":"100.0","status":"Approved"},
 {"id":"83d9ddf1-fc9b-4ee6-8db1-6afa1c8145f9","sellerEmail":"GA@gmail.com","type":"SOLAR","metricValue":"300.0","status":"Approved"},
 {"id":"6484339d-529d-4147-a61b-93b18ec67388","sellerEmail":"siva123@gmail.com","type":"TREE","metricValue":"120.0","status":"Approved"},
-{"id":"7b698037-aa52-487d-8779-6ccc038d0abd","sellerEmail":"seller@gmail.com","type":"TREE","metricValue":"100.0","status":"Pending"},
-{"id":"ed96aa9e-0be7-4636-9982-4e55dbc0cd4a","sellerEmail":"seller@gmail.com","type":"SOLAR","metricValue":"199.0","status":"Approved"}
+{"id":"7b698037-aa52-487d-8779-6ccc038d0abd","sellerEmail":"seller@gmail.com","type":"TREE","metricValue":"100.0","status":"Rejected"},
+{"id":"ed96aa9e-0be7-4636-9982-4e55dbc0cd4a","sellerEmail":"seller@gmail.com","type":"SOLAR","metricValue":"199.0","status":"Approved"},
+{"id":"e9263810-4453-4214-83c2-e50b81395e1b","sellerEmail":"seller@gmail.com","type":"TREE","metricValue":"100.0","status":"Approved"}
 ]
