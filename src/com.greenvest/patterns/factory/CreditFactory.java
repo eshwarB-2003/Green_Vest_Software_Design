@@ -11,7 +11,7 @@ public class CreditFactory {
 
     public static Credit createCredit(String sellerEmail,String type, double metricValue) {
 
-        CreditCalculationStrategy strategy =
+        CreditCalculationStrategy strategy;
                 switch (type) {
                     case "TREE" -> strategy = new TreePlantingStrategy();
                     case "SOLAR" -> strategy = new RenewableEnergyStrategy();

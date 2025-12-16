@@ -7,6 +7,6 @@ public class SellerAlertObserver implements Observer {
         this.sellerEmail = sellerEmail;
     }
     public void update(String message) {
-        System.out.println("⚠ ALERT for " + sellerEmail + ": " + message);
+        System.out.println(" ALERT for " + sellerEmail + ": " + message);
     }
 }

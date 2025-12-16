@@ -131,8 +131,9 @@ public class AdminView {
 
         if (actions == null || actions.isEmpty()) {
             System.out.println("No pending seller actions.");
+            showDashboard(admin);
         }
-
+       else
         System.out.println("\n===== PENDING SELLER ACTIONS =====");
 
         for (int i = 0; i < actions.size(); i++) {

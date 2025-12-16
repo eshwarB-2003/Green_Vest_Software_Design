@@ -8,8 +8,10 @@ public class Credit {
     private int quantity;
     private double price;
     private LocalDate expiry;
-    private String state;
+  //  private String state;
+    private CreditState state;
     private boolean listed = false;
+    private LocalDate createdDate;
 
 
     public Credit(String id,String sellerEmail, int quantity, double price, LocalDate expiry) {
@@ -18,7 +20,7 @@ public class Credit {
         this.quantity = quantity;
         this.price = price;
         this.expiry = expiry;
-        this.state = "ACTIVE";
+        this.createdDate = LocalDate.now();
     }
 
     public String getId() { return id; }
@@ -34,17 +36,34 @@ public class Credit {
         return LocalDate.now().isAfter(expiry);
     }
 
-    public String getState() {
-        if (isExpired()) state = "EXPIRED";
-        return state;
+    public CreditState  getState() {
+      return state;
     }
 
    public void updateState() {
         if (isExpired()) {
-            this.state = "EXPIRED";
-        } else {
-            this.state = "ACTIVE";
+            state = new ExpiredState();
         }
+        else if(isNearExpiry()){
+            state = new NearExpiryState();
+        }
+        else {
+            state = new ActiveState();
+        }
+    }
+    public boolean isNearExpiry() {
+
+        long totalDays =
+                java.time.temporal.ChronoUnit.DAYS.between(
+                        createdDate, expiry
+                );
+
+        long elapsedDays =
+                java.time.temporal.ChronoUnit.DAYS.between(
+                        createdDate, java.time.LocalDate.now()
+                );
+
+        return elapsedDays >= (0.7 * totalDays) && !isExpired();
     }
 
     public boolean isListed() {
