@@ -41,6 +41,7 @@ public class AdminView {
                 case 5 -> viewActivities();
                 case 6 -> {
                     System.out.println("Logging out...");
+                    return;
                 }
                 default -> System.out.println("Invalid option.");
             }

@@ -33,17 +33,20 @@ public class SellerView {
             if (ch == 1) submitAction(seller);
             else if (ch == 2) viewMyCredits(seller);
             else if (ch == 3)  listCredits(seller);
-            else continue;
+            else return;
         }
     }
 
     private void submitAction(User seller) {
         System.out.print("Action Type (TREE/SOLAR): ");
         String type = sc.nextLine();
-
         System.out.print("Metric Value: ");
         double metric = sc.nextDouble();
         sc.nextLine();
+        if(metric <=0){
+            System.out.println("Invalid Metric Value should be atleast 1");
+            showDashboard(seller);
+        }
 
         SustainabilityAction action =
                 new SustainabilityAction(

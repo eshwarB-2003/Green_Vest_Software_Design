@@ -68,6 +68,7 @@ import com.greenvest.config.SystemConfig;
 import com.greenvest.model.*;
 import com.greenvest.repo.*;
 import com.greenvest.patterns.factory.*;
+import com.greenvest.view.*;
 
 import java.util.List;
 
@@ -87,24 +88,22 @@ public class AdminService {
     }
 
     public void approveAction(SustainabilityAction action) {
+          action.approve();
+            actionRepo.update(action);
 
-        action.approve();
-        actionRepo.update(action);
+            Credit credit = CreditFactory.createCredit(
+                    action.getSellerEmail(),
+                    action.getType(),
+                    action.getMetricValue()
+            );
 
-        Credit credit = CreditFactory.createCredit(
-                action.getSellerEmail(),
-                action.getType(),
-                action.getMetricValue()
-        );
+            creditRepo.save(credit);
 
-        creditRepo.save(credit);
-
-        activityService.log(
-                "Approved sustainability action for seller: " + action.getSellerEmail(),
-                "ADMIN"
-        );
-    }
-
+            activityService.log(
+                    "Approved sustainability action for seller: " + action.getSellerEmail(),
+                    "ADMIN"
+            );
+        }
     public void rejectAction(SustainabilityAction action) {
 
         action.reject();

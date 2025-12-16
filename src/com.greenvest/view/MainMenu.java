@@ -149,6 +149,7 @@ public class MainMenu {
 
                         view.showDashboard(user);
                     }
+
                 }
             }
         }

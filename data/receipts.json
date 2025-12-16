@@ -19,5 +19,12 @@
     "quantity": "1",
     "totalCost": "10.0",
     "buyerEmail": "buyer@gmail.com"
+  },
+  {
+    "id": "c9defd2d-c1b5-4158-bae1-9a7c281d430d",
+    "creditId": "6d2c10c4-dfcf-457f-82d9-bb7ad3409667",
+    "quantity": "5",
+    "totalCost": "50.0",
+    "buyerEmail": "buyer@gmail.com"
   }
 ]

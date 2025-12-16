@@ -29,7 +29,6 @@ public class AdminController {
     public void approve(User admin, SustainabilityAction action) {
         if (!interceptorManager.execute(admin.getEmail(), admin.getRole()))
             return;
-
         adminService.approveAction(action);
     }
     public void reject(User admin, SustainabilityAction action) {

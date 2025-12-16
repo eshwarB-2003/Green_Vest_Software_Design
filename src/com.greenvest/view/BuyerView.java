@@ -37,11 +37,11 @@ public class BuyerView {
 
             if (choice == 1) viewAvailableCredits(buyer);
             else if (choice == 2) handlePurchase(buyer);
-            else if(choice == 3) showPortfolio(buyer);
-            else if(choice == 4) showReceipt(buyer);
-            else if(choice == 5 ) showAccountSummary(buyer);
-            else if(choice <= 0 || choice > 6) System.out.println("Invalid choice, Try Again !");
-            else return;
+            else if (choice == 3) showPortfolio(buyer);
+            else if (choice == 4) showReceipt(buyer);
+            else if (choice == 5) showAccountSummary(buyer);
+            else if (choice <= 0 || choice > 6) System.out.println("Invalid choice, Try Again !");
+            else { System.out.println("Logging out !!!.. "); return; }
         }
     }
 
@@ -52,6 +52,7 @@ public class BuyerView {
 
         if (lastMarketplace == null || lastMarketplace.isEmpty()) {
             System.out.println("No credits available.");
+            showDashboard(buyer);
 
         }
 
@@ -64,40 +65,41 @@ public class BuyerView {
                             " | Price: " + c.getPrice()
             );
         }
-
+        showDashboard(buyer);
     }
 
     private void handlePurchase(User buyer) {
 
         if (lastMarketplace == null || lastMarketplace.isEmpty()) {
             System.out.println("No credits loaded. View marketplace first.");
-
-        }
-
-        System.out.print("Select credit index: ");
-        int index = sc.nextInt();
-        sc.nextLine();
-
-        if (index < 0 || index >= lastMarketplace.size()) {
-            System.out.println("Invalid selection.");
-        }
-
-        Credit selected = lastMarketplace.get(index);
-
-        System.out.print("Quantity: ");
-        int qty = sc.nextInt();
-        sc.nextLine();
-
-        Receipt receipt = controller.purchase(buyer, selected, qty);
-
-        if (receipt != null) {
-            System.out.println(" Purchase successful!");
-            System.out.println("Receipt ID: " + receipt.getId());
-            System.out.println("Total Amount: " + receipt.getTotalCost());
+             showDashboard(buyer);
 
         } else {
-            System.out.println(" Purchase failed.");
+            System.out.print("Select credit index: ");
+            int index = sc.nextInt();
+            sc.nextLine();
 
+            if (index < 0 || index >= lastMarketplace.size()) {
+                System.out.println("Invalid selection.");
+            }
+
+            Credit selected = lastMarketplace.get(index);
+
+            System.out.print("Quantity: ");
+            int qty = sc.nextInt();
+            sc.nextLine();
+
+            Receipt receipt = controller.purchase(buyer, selected, qty);
+
+            if (receipt != null) {
+                System.out.println(" Purchase successful!");
+                System.out.println("Receipt ID: " + receipt.getId());
+                System.out.println("Total Amount: " + receipt.getTotalCost());
+
+            } else {
+                System.out.println(" Purchase failed.");
+
+            }
         }
     }
 
@@ -106,6 +108,7 @@ public class BuyerView {
 
         if (portfolio == null || portfolio.isEmpty()) {
             System.out.println("No credits in your portfolio.");
+            showDashboard(buyer);
         }
 
 
@@ -119,9 +122,10 @@ public class BuyerView {
         }
     }
     private void showReceipt(User buyer) {
+        System.out.println("\n===== YOUR RECEIPTS =====");
         List<Receipt> receipts = controller.showReceipts(buyer);
 
-        System.out.println("\n===== YOUR RECEIPTS =====");
+
 
     }
     private void showAccountSummary(User buyer) {

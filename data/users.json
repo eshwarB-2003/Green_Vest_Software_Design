@@ -194,5 +194,12 @@
     "role": "ADMIN",
     "passwordHash": "7676aaafb027c825bd9abab78b234070e702752f625b752e55e55b48e607e358",
     "balance": 1000.0
+  },
+  {
+    "name": "admin",
+    "email": "admin@gmail.com",
+    "role": "ADMIN",
+    "passwordHash": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+    "balance": 1000.0
   }
 ]
