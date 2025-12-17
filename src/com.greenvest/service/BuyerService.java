@@ -2,6 +2,7 @@ package com.greenvest.service;
 import com.greenvest.model.Credit;
 import com.greenvest.model.Receipt;
 import com.greenvest.model.User;
+import com.greenvest.patterns.state.ActiveState;
 import com.greenvest.patterns.state.ExpiredState;
 import com.greenvest.patterns.state.NearExpiryState;
 import com.greenvest.repo.*;
@@ -24,16 +25,14 @@ public class BuyerService {
     public BuyerService(CreditRepository creditRep
                         , ReceiptRepository receiptRepo
                         , PortfolioRepository portfolioRepo,
-                        RuleEngineService ruleEngine,
-                         User buyer) {
+                        RuleEngineService ruleEngine
+                         ) {
         this.creditRepo = creditRep;
         this.receiptRepo = receiptRepo;
         this.portfolioRepo = portfolioRepo;
         this.alertService = new AlertService();
         this.ruleEngine = ruleEngine;
-        this.alertService.attach(
-                new BuyerAlertObserver(buyer.getEmail())
-        );
+        this.alertService = new AlertService();
     }
 // ----------------MarketPlace -----------------
     public List<Credit> loadAvailableCredits() {
@@ -93,6 +92,9 @@ public class BuyerService {
 
     // portfolio
     public List<Credit> getPortfolio(User buyer) {
+        alertService.attach(
+                new BuyerAlertObserver(buyer.getEmail())
+        );
         List<Credit> credits = portfolioRepo.getCreditsByBuyer(buyer.getEmail());
 
         for (Credit c : credits) {
@@ -135,7 +137,7 @@ public class BuyerService {
 
             totalCredits += c.getQuantity();
 
-            if (c.getState().equals("ACTIVE"))
+            if (c.getState() instanceof ActiveState)
                 active += c.getQuantity();
             else
                 expired += c.getQuantity();

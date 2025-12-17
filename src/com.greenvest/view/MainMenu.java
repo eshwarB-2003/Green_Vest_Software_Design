@@ -141,7 +141,7 @@ public class MainMenu {
 
 // Service
                         BuyerService service =
-                                new BuyerService(creditRepo, receiptRepo, portfolioRepo, engine, user);
+                                new BuyerService(creditRepo, receiptRepo, portfolioRepo, engine);
 
 // Controller + View
                         BuyerController controller = new BuyerController(service);

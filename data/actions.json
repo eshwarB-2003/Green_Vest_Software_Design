@@ -1,3 +1,4 @@
 [
-{"id":"697634f4-9f67-41cf-a5cd-e8b1a327c5b9","sellerEmail":"seller@gmail.com","type":"SOLAR","metricValue":"10.0","status":"Approved"}
+{"id":"697634f4-9f67-41cf-a5cd-e8b1a327c5b9","sellerEmail":"seller@gmail.com","type":"SOLAR","metricValue":"10.0","status":"Approved"},
+{"id":"802c7a6e-b65b-4e0c-aaa9-30fe07446df7","sellerEmail":"seller@gmail.com","type":"TREE","metricValue":"1000.0","status":"Approved"}
 ]
