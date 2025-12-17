@@ -9,14 +9,15 @@ import java.util.List;
 import java.util.Scanner;
 
 public class BuyerView {
-
+   // controller reference
     private BuyerController controller;
+    // scanner for console inputs
     private Scanner sc = new Scanner(System.in);
-
+// cache of last loaded marketplace credits used to allow credits by index selectiom
     public BuyerView(BuyerController controller) {
         this.controller = controller;
     }
-
+// main buyerview  dashbaord
     public void showDashboard(User buyer) {
 
         while (true) {
@@ -44,9 +45,12 @@ public class BuyerView {
         }
     }
 
+     /* Loads and displays available credits from marketplace
+      Delegates retrieval to BuyerController */
   private List<Credit> lastMarketplace = new ArrayList<>();
 
     private void viewAvailableCredits(User buyer) {
+        // Fetch marketplace credits via controlle
         lastMarketplace = controller.viewMarketplace(buyer);
 
         if (lastMarketplace == null || lastMarketplace.isEmpty()) {
@@ -56,6 +60,7 @@ public class BuyerView {
         }
 
         System.out.println("\n===== AVAILABLE CREDITS =====");
+        // Display credits with index for selection
         for (int i = 0; i < lastMarketplace.size(); i++) {
             Credit c = lastMarketplace.get(i);
             System.out.println(
@@ -66,9 +71,10 @@ public class BuyerView {
         }
         showDashboard(buyer);
     }
-
-    private void handlePurchase(User buyer) {
-
+   /* Handles credit purchase flow
+    Uses previously loaded marketplace credits */
+     private void handlePurchase(User buyer) {
+       // Ensure marketplace is loaded first
         if (lastMarketplace == null || lastMarketplace.isEmpty()) {
             System.out.println("No credits loaded. View marketplace first.");
              showDashboard(buyer);
@@ -77,7 +83,7 @@ public class BuyerView {
             System.out.print("Select credit index: ");
             int index = sc.nextInt();
             sc.nextLine();
-
+            // Validate index
             if (index < 0 || index >= lastMarketplace.size()) {
                 System.out.println("Invalid selection.");
             }
@@ -101,7 +107,8 @@ public class BuyerView {
             }
         }
     }
-
+    /* Displays buyer's credit portfolio
+    State Pattern applied inside Credit entity */
     private void showPortfolio(User buyer) {
         List<Credit> portfolio = controller.viewPortfolio(buyer);
 
@@ -112,6 +119,8 @@ public class BuyerView {
 
 
         for (Credit c : portfolio) {
+            /* Displays buyer's credit portfolio
+              State Pattern applied inside Credit entity */
             c.updateState();  // State Pattern
             System.out.println(
                     c.getId() + " | Qty: " + c.getQuantity() +
@@ -120,13 +129,14 @@ public class BuyerView {
             );
         }
     }
+    /* Displays buyer's credit portfolio
+     State Pattern applied inside Credit entity*/
     private void showReceipt(User buyer) {
         System.out.println("\n===== YOUR RECEIPTS =====");
         List<Receipt> receipts = controller.showReceipts(buyer);
 
-
-
     }
+    // Displays aggregated buyer account summary
     private void showAccountSummary(User buyer) {
 
         Map<String, Object> summary = controller.getAccountSummary(buyer);

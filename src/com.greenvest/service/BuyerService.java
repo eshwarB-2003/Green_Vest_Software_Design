@@ -12,16 +12,19 @@ import com.greenvest.patterns.observer.*;
 import java.util.*;
 
 import java.util.List;
-
+// Service-layer class containing all Buyer-related business logic.
 public class BuyerService {
-
+    // Repository dependencies (Repository Pattern)
     private CreditRepository creditRepo;
     private ReceiptRepository receiptRepo;
     private PortfolioRepository portfolioRepo ;
+    // Observer subject for expiry alerts
     private AlertService alertService;
+    // Business rule engine
     private RuleEngineService ruleEngine;
+    // Activity logger (audit / traceability)
     ActivityService activityService = new ActivityService();
-
+    // Constructor injects repositories and rule engine
     public BuyerService(CreditRepository creditRep
                         , ReceiptRepository receiptRepo
                         , PortfolioRepository portfolioRepo,
@@ -35,19 +38,24 @@ public class BuyerService {
         this.alertService = new AlertService();
     }
 // ----------------MarketPlace -----------------
+ /*Loads marketplace credits available for purchase
+ Applies basic filtering rules*/
     public List<Credit> loadAvailableCredits() {
         return creditRepo.getAvailableCredits().stream()
                 .filter(Credit::isListed)
                 .filter(c -> c.getQuantity() >0)
                 .toList();
     }
+    /* Core purchase use case
+       Executes validation, balance updates, portfolio updates,
+       receipt generation, and persistence */
 
     public Receipt processPurchase(User buyer, Credit credit, int qty) {
         activityService.log(
                 "Buyer purchased credits | Qty: " + qty + " | Credit ID: " + credit.getId(),
                 buyer.getEmail()
         );
-
+        // Validate business rules via Rule Engine
         if (!ruleEngine.validatePurchase(buyer, credit, qty)) {
             return null;
         }
@@ -76,7 +84,6 @@ public class BuyerService {
         portfolioRepo.saveCreditForBuyer(buyer.getEmail(), purchased);
 
         //  CREATE RECEIPT BEFORE RETURN
-       // double cost =credit.getPrice() *qty;
         Receipt receipt = new Receipt(
                 UUID.randomUUID().toString(),
                 credit.getId(),
@@ -86,11 +93,13 @@ public class BuyerService {
         );
         receiptRepo.saveReceipt(receipt);
 
-        //  RETURN IS LAST
+        //  RETURN receipt is last returns to controller
         return receipt;
     }
 
     // portfolio
+    /* Returns buyer portfolio
+       Applies State Pattern and triggers alerts via Observer Pattern */
     public List<Credit> getPortfolio(User buyer) {
         alertService.attach(
                 new BuyerAlertObserver(buyer.getEmail())
@@ -98,8 +107,9 @@ public class BuyerService {
         List<Credit> credits = portfolioRepo.getCreditsByBuyer(buyer.getEmail());
 
         for (Credit c : credits) {
+            // Attach observer dynamically for this buyer
             c.updateState();  // STATE PATTERN
-
+            // Notify buyer based on state
             if (c.getState() instanceof ExpiredState) {
                 alertService.notifyObservers("Your credit " + c.getId() + " has expired!");
             }
