@@ -10,7 +10,6 @@ import com.greenvest.model.User;
 import com.greenvest.service.BuyerService;
 import com.greenvest.rules.*;
 import com.greenvest.service.SellerService;
-import com.greenvest.view.BuyerView;
 
 public class MainMenu {
 
@@ -25,11 +24,15 @@ public class MainMenu {
             System.out.println("3. Buyer");
             int roleOption = sc.nextInt(); sc.nextLine();
 
-            String role = switch (roleOption) {
-                case 1 -> "ADMIN";
-                case 2 -> "SELLER";
-                case 3 -> "BUYER";
-                default -> throw new IllegalArgumentException("Invalid role");
+            String role = null;
+            switch (roleOption) {
+                case 1 -> role = "ADMIN";
+                case 2 -> role = "SELLER";
+                case 3 -> role = "BUYER";
+                default -> {
+                    System.out.println("Invalid role selection,Try again.");
+                    continue;
+                }
             };
 
             System.out.println("1. Register");
