@@ -1,3 +1,5 @@
+// validates whether credit to list or not
+
 package com.greenvest.rules;
 
 import com.greenvest.model.Credit;
@@ -6,6 +8,7 @@ import com.greenvest.model.User;
 import java.time.LocalDate;
 
 public class ListingRule implements RulePlugin {
+    // min price allowed to list
     private static final double MIN_PRICE = 10.0;
 
     @Override
@@ -17,7 +20,7 @@ public class ListingRule implements RulePlugin {
             return false;
         }
 
-        // Rule 2: Minimum price rule
+        // Rule 2: price must meet min price
         if (credit.getPrice() < MIN_PRICE) {
             System.out.println(" Price below minimum allowed.");
             return false;
