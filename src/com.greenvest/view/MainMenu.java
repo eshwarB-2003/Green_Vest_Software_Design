@@ -23,6 +23,10 @@ public class MainMenu {
             System.out.println("2. Seller");
             System.out.println("3. Buyer");
             int roleOption = sc.nextInt(); sc.nextLine();
+            if(roleOption == 0) {
+                System.out.println(" Exiting System.. ");
+            break;
+            }
 
             String role = null;
             switch (roleOption) {
