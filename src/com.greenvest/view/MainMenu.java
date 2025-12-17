@@ -22,7 +22,7 @@ public class MainMenu {
             System.out.println("1. Admin");
             System.out.println("2. Seller");
             System.out.println("3. Buyer");
-            System.out.println("4. Exit");
+            System.out.println("0. Exit");
             int roleOption = sc.nextInt(); sc.nextLine();
             if(roleOption == 0) {
                 System.out.println(" Exiting System.. ");
