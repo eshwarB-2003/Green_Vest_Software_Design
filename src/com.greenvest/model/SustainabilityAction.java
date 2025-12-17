@@ -1,49 +1,34 @@
-/*package com.greenvest.model;
-
-public class SustainabilityAction {
-
-    private String id;
-    private String sellerEmail;
-    private String type;        // TREE, SOLAR, RECYCLE
-    private double metricValue; // trees count, kWh, etc
-    private String status;
-
-    public SustainabilityAction(String id, String sellerEmail,
-                                String type, double metricValue) {
-        this.id = id;
-        this.sellerEmail = sellerEmail;
-        this.type = type.trim().toUpperCase().replace(" ", "_");
-        this.metricValue = metricValue;
-      //  this.approved = false;
-        this.status = "Pending";
-    }
-
-
-    public String getId() { return id; }
-    public String getType() { return type; }
-    public String getSellerEmail(){ return sellerEmail; }
-    public double getMetricValue() { return metricValue; }
-    public void  approve() { this.status = "Approved"; }
-    public void  reject() { this.status = "Rejected"; }
-    public boolean isPending() { return status.equals("Pending"); }
-    public String getStatus() {
-        return this.status;
-    }
-
-    // public boolean isApproved() { return approved; }
-}*/
 package com.greenvest.model;
 
+/*
+ * SustainabilityAction represents an action
+ * submitted by a seller for approval.
+ * It supports both credit-based and custom actions.
+ */
 public class SustainabilityAction {
 
+    // Unique action ID
     private String id;
+
+    // Email of the seller who submitted the action
     private String sellerEmail;
-    private String type;        // TREE, SOLAR, RECYCLE, OTHER
-    private double metricValue; // used only for credit actions
-    private String description; // used only for OTHER
+
+    // Type of action (TREE, SOLAR, RECYCLE, OTHER)
+    private String type;
+
+    // Numeric value used for credit calculation
+    private double metricValue;
+
+    // Description used only for OTHER actions
+    private String description;
+
+    // Current status of the action
     private String status;
 
-    // Constructor for TREE / SOLAR / RECYCLE
+    /*
+     * Constructor for credit-based actions
+     * like TREE, SOLAR and RECYCLE.
+     */
     public SustainabilityAction(String id, String sellerEmail,
                                 String type, double metricValue) {
         this.id = id;
@@ -53,7 +38,10 @@ public class SustainabilityAction {
         this.status = "Pending";
     }
 
-    // Constructor for OTHER
+    /*
+     * Constructor for OTHER type actions
+     * where description is required instead of metrics.
+     */
     public SustainabilityAction(String id, String sellerEmail,
                                 String type, String description) {
         this.id = id;
@@ -64,6 +52,7 @@ public class SustainabilityAction {
         this.status = "Pending";
     }
 
+    // Getter methods
     public String getId() { return id; }
     public String getSellerEmail() { return sellerEmail; }
     public String getType() { return type; }
@@ -71,18 +60,23 @@ public class SustainabilityAction {
     public String getDescription() { return description; }
     public String getStatus() { return status; }
 
-
-
-
+    // Checks if the action is still waiting for approval
     public boolean isPending() {
         return status.equals("Pending");
     }
 
+    // Checks if the action is of type OTHER
     public boolean isOther() {
         return "OTHER".equals(type);
     }
 
-    public void approve() { status = "Approved"; }
-    public void reject() { status = "Rejected"; }
-}
+    // Marks the action as approved
+    public void approve() {
+        status = "Approved";
+    }
 
+    // Marks the action as rejected
+    public void reject() {
+        status = "Rejected";
+    }
+}

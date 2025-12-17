@@ -1,124 +1,3 @@
-/*package com.greenvest.repo;
-
-import com.greenvest.model.SustainabilityAction;
-
-import java.io.*;
-import java.util.*;
-
-public class ActionRepositoryJSON implements ActionRepository {
-
-    private static ActionRepositoryJSON instance;
-    private final String FILE_PATH = "data/actions.json";
-
-    private ActionRepositoryJSON() {}
-
-    public static synchronized ActionRepositoryJSON getInstance() {
-        if (instance == null)
-            instance = new ActionRepositoryJSON();
-        return instance;
-    }
-
-    @Override
-    public void save(SustainabilityAction action) {
-        List<SustainabilityAction> actions = loadAll();
-        actions.add(action);
-        writeAll(list);
-    }
-
-    @Override
-   /* public List<SustainabilityAction> getPendingActions() {
-        List<SustainabilityAction> list = new ArrayList<>();
-
-    public List<SustainabilityAction> getPendingActions() {
-
-        List<SustainabilityAction> all = loadAll();
-        List<SustainabilityAction> pending = new ArrayList<>();
-
-        for (SustainabilityAction a : all) {
-            if (!a.isApproved()) {        // 👈 ONLY PENDING
-                pending.add(a);
-            }
-        }
-        return pending;
-    }
-
-        try {
-            File f = new File(FILE_PATH);
-            if (!f.exists()) {
-                f.getParentFile().mkdirs();
-                new FileWriter(f).write("[]");
-            }
-
-            BufferedReader br = new BufferedReader(new FileReader(f));
-            StringBuilder sb = new StringBuilder();
-            String line;
-
-            while ((line = br.readLine()) != null)
-                sb.append(line);
-            br.close();
-
-            String raw = sb.toString();
-            if (raw.equals("[]")) return list;
-
-            raw = raw.substring(1, raw.length() - 1);
-            String[] entries = raw.split("\\},\\{");
-
-            for (String e : entries) {
-                e = e.replace("{", "").replace("}", "");
-                String[] parts = e.split(",");
-
-                String id="", seller="", type="";
-                double metric=0;
-                boolean approved=false;
-
-                for (String p : parts) {
-                    String[] kv = p.split(":");
-                    String key = kv[0].replace("\"","");
-                    String val = kv[1].replace("\"","");
-
-                    switch (key) {
-                        case "id" -> id = val;
-                        case "sellerEmail" -> seller = val;
-                        case "type" -> type = val;
-                        case "metricValue" -> metric = Double.parseDouble(val);
-                        case "approved" -> approved = Boolean.parseBoolean(val);
-                    }
-                }
-
-                SustainabilityAction a =
-                        new SustainabilityAction(id, seller, type, metric);
-                if (approved) a.approve();
-
-                list.add(a);
-            }
-        } catch (Exception ignored) {}
-
-        return list;
-    }
-
-    @Override
-    public void update(SustainabilityAction action) {
-        List<SustainabilityAction> list = getPendingActions();
-        writeAll(list);
-    }
-
-    private void writeAll(List<SustainabilityAction> list) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH))) {
-            bw.write("[\n");
-            for (int i=0;i<list.size();i++) {
-                SustainabilityAction a = list.get(i);
-                bw.write("{\"id\":\""+a.getId()+"\",\"sellerEmail\":\""+
-                        a.getSellerEmail()+"\",\"type\":\""+a.getType()+
-                        "\",\"metricValue\":\""+a.getMetricValue()+
-                        "\",\"approved\":\""+a.isApproved()+"\"}");
-                if (i<list.size()-1) bw.write(",");
-                bw.write("\n");
-            }
-            bw.write("]");
-        } catch (Exception ignored) {}
-    }
-}
-*/
 package com.greenvest.repo;
 
 import com.greenvest.model.SustainabilityAction;
@@ -126,19 +5,31 @@ import com.greenvest.model.SustainabilityAction;
 import java.io.*;
 import java.util.*;
 
+/*
+ * ActionRepositoryJSON stores sustainability actions
+ * in a JSON file using simple file handling.
+ * It follows the Singleton pattern.
+ */
 public class ActionRepositoryJSON implements ActionRepository {
 
+    // Single instance of repository
     private static ActionRepositoryJSON instance;
+
+    // File path for storing actions
     private final String FILE_PATH = "data/actions.json";
 
+    // Private constructor for singleton
     private ActionRepositoryJSON() {}
 
+    // Returns the single repository instance
     public static synchronized ActionRepositoryJSON getInstance() {
         if (instance == null) {
             instance = new ActionRepositoryJSON();
         }
         return instance;
     }
+
+    // Returns all approved actions
     @Override
     public List<SustainabilityAction> getApprovedActions() {
         return loadAll().stream()
@@ -146,6 +37,7 @@ public class ActionRepositoryJSON implements ActionRepository {
                 .toList();
     }
 
+    // Returns all rejected actions
     @Override
     public List<SustainabilityAction> getRejectedActions() {
         return loadAll().stream()
@@ -153,18 +45,21 @@ public class ActionRepositoryJSON implements ActionRepository {
                 .toList();
     }
 
-
-    // ---------------- SAVE ----------------
+    /*
+     * Saves a new sustainability action
+     * to the JSON file.
+     */
     @Override
     public void save(SustainabilityAction action) {
         List<SustainabilityAction> actions = loadAll();
-       List<SustainabilityAction> pending = new ArrayList<>();
-
-       actions.add(action);
+        actions.add(action);
         writeAll(actions);
     }
 
-    // ---------------- GET PENDING ----------------
+    /*
+     * Returns all actions that are
+     * still pending approval.
+     */
     @Override
     public List<SustainabilityAction> getPendingActions() {
 
@@ -172,14 +67,17 @@ public class ActionRepositoryJSON implements ActionRepository {
         List<SustainabilityAction> pending = new ArrayList<>();
 
         for (SustainabilityAction a : all) {
-            if (a.isPending()) {     // ✅ STATUS-BASED
+            if (a.isPending()) {
                 pending.add(a);
             }
         }
         return pending;
     }
 
-    // ---------------- UPDATE ----------------
+    /*
+     * Updates the status of an existing action
+     * (Approved or Rejected).
+     */
     @Override
     public void update(SustainabilityAction action) {
 
@@ -188,14 +86,12 @@ public class ActionRepositoryJSON implements ActionRepository {
         for (SustainabilityAction a : all) {
             if (a.getId().equals(action.getId())) {
 
-                // 🔥 FORCE STATUS OVERWRITE
+                // Update status based on admin decision
                 if (action.getStatus().equals("Approved")) {
                     a.approve();
-                }
-                else if (action.getStatus().equals("Rejected")) {
+                } else if (action.getStatus().equals("Rejected")) {
                     a.reject();
                 }
-
                 break;
             }
         }
@@ -203,7 +99,10 @@ public class ActionRepositoryJSON implements ActionRepository {
         writeAll(all);
     }
 
-    // ---------------- LOAD ALL ----------------
+    /*
+     * Loads all sustainability actions
+     * from the JSON file.
+     */
     private List<SustainabilityAction> loadAll() {
 
         List<SustainabilityAction> list = new ArrayList<>();
@@ -211,6 +110,7 @@ public class ActionRepositoryJSON implements ActionRepository {
         try {
             File file = new File(FILE_PATH);
 
+            // Create file if it does not exist
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 new FileWriter(file).write("[]");
@@ -219,6 +119,7 @@ public class ActionRepositoryJSON implements ActionRepository {
             BufferedReader br = new BufferedReader(new FileReader(file));
             StringBuilder sb = new StringBuilder();
             String line;
+
             while ((line = br.readLine()) != null) {
                 sb.append(line);
             }
@@ -229,10 +130,9 @@ public class ActionRepositoryJSON implements ActionRepository {
                 return list;
             }
 
+            // Remove array brackets
             if (json.startsWith("[")) json = json.substring(1);
             if (json.endsWith("]")) json = json.substring(0, json.length() - 1);
-
-            if (json.trim().isEmpty()) return list;
 
             String[] entries = json.split("\\},\\s*\\{");
 
@@ -274,7 +174,10 @@ public class ActionRepositoryJSON implements ActionRepository {
         return list;
     }
 
-    // ---------------- WRITE ALL ----------------
+    /*
+     * Writes all sustainability actions
+     * back to the JSON file.
+     */
     private void writeAll(List<SustainabilityAction> list) {
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH))) {
