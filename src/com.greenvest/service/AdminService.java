@@ -1,66 +1,4 @@
-/* package com.greenvest.service;
-
-import com.greenvest.config.SystemConfig;
-import com.greenvest.model.*;
-import com.greenvest.repo.*;
-import com.greenvest.patterns.factory.*;
-import com.greenvest.service.ActivityService;
-import java.util.List;
-
-public class AdminService {
-
-    private ActionRepository actionRepo;
-    private CreditRepository creditRepo;
-
-    public AdminService(ActionRepository aRepo, CreditRepository cRepo) {
-        this.actionRepo = aRepo;
-        this.creditRepo = cRepo;
-    }
-
-    public List<SustainabilityAction> getPendingActions() {
-        return actionRepo.getPendingActions();
-    }
-
-    public void approveAction(SustainabilityAction action) {
-
-
-        action.approve();
-        actionRepo.update(action);
-
-        //GENERATE CREDITS
-        Credit credit = CreditFactory.createCredit(
-                action.getSellerEmail(),
-                action.getType(),
-                action.getMetricValue()
-        );
-
-
-        creditRepo.save(credit);
-    }
-    public void rejectAction(SustainabilityAction action) {
-
-        System.out.println("DEBUG: rejectAction() CALLED for ID = " + action.getId());
-
-        action.reject();
-        actionRepo.update(action);
-    }
-    public List<SustainabilityAction> getApprovedActions() {
-        return actionRepo.getApprovedActions();
-    }
-
-    public List<SustainabilityAction> getRejectedActions() {
-        return actionRepo.getRejectedActions();
-    }
-    public void setMinimumCreditPrice(double price) {
-        SystemConfig.setMinCreditPrice(price);
-    }
-
-
-
-
-}
-
-*/
+// contains all business logic related to admin
 
 package com.greenvest.service;
 
@@ -74,61 +12,74 @@ import java.util.List;
 
 public class AdminService {
 
+    // repo to manage action
     private ActionRepository actionRepo;
+
+    // repo to manage credits
     private CreditRepository creditRepo;
+
+    // service to log system activites
     private ActivityService activityService = new ActivityService();
 
+    // constructor to inject repo
     public AdminService(ActionRepository aRepo, CreditRepository cRepo) {
         this.actionRepo = aRepo;
         this.creditRepo = cRepo;
     }
 
+    // return all pending actions
     public List<SustainabilityAction> getPendingActions() {
         return actionRepo.getPendingActions();
     }
 
+    // approve action
     public void approveAction(SustainabilityAction action) {
+
+        // update action status to approve
           action.approve();
             actionRepo.update(action);
 
+            // generate credit using factory
             Credit credit = CreditFactory.createCredit(
                     action.getSellerEmail(),
                     action.getType(),
                     action.getMetricValue()
             );
 
+            // save to repo
             creditRepo.save(credit);
 
-            activityService.log(
-                    "Approved sustainability action for seller: " + action.getSellerEmail(),
-                    "ADMIN"
-            );
-        }
+            // log activity
+            activityService.log("Approved sustainability action for seller: " + action.getSellerEmail(),"ADMIN" );
+    }
+
+    // reject action
     public void rejectAction(SustainabilityAction action) {
 
+        // update action status to reject
         action.reject();
         actionRepo.update(action);
 
-        activityService.log(
-                "Rejected sustainability action for seller: " + action.getSellerEmail(),
-                "ADMIN"
-        );
+        // log rejection activity
+        activityService.log( "Rejected sustainability action for seller: " + action.getSellerEmail(), "ADMIN"  );
     }
 
+    // return all approved action
     public List<SustainabilityAction> getApprovedActions() {
         return actionRepo.getApprovedActions();
     }
 
+    // return all rejected action
     public List<SustainabilityAction> getRejectedActions() {
         return actionRepo.getRejectedActions();
     }
 
+    // set minimum price
     public void setMinimumCreditPrice(double price) {
+        // update price
         SystemConfig.setMinCreditPrice(price);
 
-        activityService.log(
-                "Minimum credit price updated to " + price,
-                "ADMIN"
-        );
+        // log activity
+        activityService.log("Minimum credit price updated to " + price,"ADMIN" );
     }
 }
