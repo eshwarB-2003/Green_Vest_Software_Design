@@ -10,13 +10,16 @@ import java.util.List;
 import java.util.Scanner;
 public class AdminView {
 
+    // controller to handle admin-related business logic
     private AdminController controller;
     private Scanner sc = new Scanner(System.in);
 
+    // constructor to inject admincontroller
     public AdminView(AdminController controller) {
         this.controller = controller;
     }
 
+    // admin menu
     public void showDashboard(User admin) {
 
         while (true) {
@@ -33,6 +36,7 @@ public class AdminView {
             int choice = sc.nextInt();
             sc.nextLine();
 
+            // call method based on choice
             switch (choice) {
                 case 1 -> viewPendingActions(admin);
                 case 2 -> viewApprovedActions(admin);
@@ -48,6 +52,7 @@ public class AdminView {
         }
     }
 
+    // display aprroved action
     private void viewApprovedActions(User admin) {
         List<SustainabilityAction> list = controller.viewApproved(admin);
 
@@ -57,18 +62,12 @@ public class AdminView {
 
         System.out.println("===== APPROVED ACTIONS =====");
         list.forEach(a ->
-                System.out.println(
-                        "Seller: " + a.getSellerEmail() +
-                                " | Type: " + a.getType() +
-                                " | Metric: " + a.getMetricValue()
+                System.out.println( "Seller: " + a.getSellerEmail() + " | Type: " + a.getType() + " | Metric: " + a.getMetricValue()
                 )
         );
     }
 
-
-
-
-
+    // display rejected data
     private void viewRejectedActions(User admin) {
         List<SustainabilityAction> list = controller.viewRejected(admin);
 
@@ -79,16 +78,15 @@ public class AdminView {
 
         System.out.println("===== REJECTED ACTIONS =====");
         list.forEach(a ->
-                System.out.println(
-                        "Seller: " + a.getSellerEmail() +
-                                " | Type: " + a.getType() +
-                                " | Metric: " + a.getMetricValue()
+                System.out.println( "Seller: " + a.getSellerEmail() + " | Type: " + a.getType() +  " | Metric: " + a.getMetricValue()
                 )
         );
     }
 
+    // biew system log activities
     private void viewActivities() {
 
+        // use activity service
         ActivityService service = new ActivityService();
         List<Activity> list = service.getAllActivities();
 
@@ -99,14 +97,12 @@ public class AdminView {
 
         System.out.println("\n===== SYSTEM ACTIVITY LOG =====");
         for (Activity a : list) {
-            System.out.println(
-                    a.getTimestamp() + " | " +
-                            a.getPerformedBy() + " | " +
-                            a.getMessage()
+            System.out.println(a.getTimestamp() + " | " + a.getPerformedBy() + " | " + a.getMessage()
             );
         }
     }
 
+    // set minimum price
     private void setMinimumPrice(User admin) {
 
         System.out.print("Enter minimum credit price: ");
@@ -123,7 +119,7 @@ public class AdminView {
     }
 
 
-
+    // display pending action
     private void viewPendingActions(User admin) {
 
         List<SustainabilityAction> actions =
@@ -138,10 +134,7 @@ public class AdminView {
 
         for (int i = 0; i < actions.size(); i++) {
             SustainabilityAction a = actions.get(i);
-            System.out.println(
-                    i + ". Seller: " + a.getSellerEmail()
-                            + " | Type: " + a.getType()
-                            + " | Metric: " + a.getMetricValue()
+            System.out.println(  i + ". Seller: " + a.getSellerEmail()  + " | Type: " + a.getType()  + " | Metric: " + a.getMetricValue()
             );
         }
 
@@ -164,6 +157,7 @@ public class AdminView {
         int choice = sc.nextInt();
         sc.nextLine();
 
+        // perform approve or reject using controller
         switch (choice) {
             case 1 -> {
                 controller.approve(admin, selected);
